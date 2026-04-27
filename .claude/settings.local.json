@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(STRIPE_SECRET_KEY=sk_test_dummy NEXT_PUBLIC_BASE_URL=http://localhost:3000 npx next build)",
+      "WebFetch(domain:coordinators.pro)",
+      "Bash(npx next *)",
+      "Bash(rm -rf .next/types)"
+    ]
+  }
+}
