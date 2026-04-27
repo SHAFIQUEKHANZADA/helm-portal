@@ -27,19 +27,6 @@ function Label({ children, required }: { children: React.ReactNode; required?: b
 const inputClass =
   "w-full px-4 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#162060]/20 focus:border-[#162060] transition-all";
 
-function Toggle({ on, onToggle, label, sublabel }: { on: boolean; onToggle: () => void; label: string; sublabel?: string }) {
-  return (
-    <button type="button" onClick={onToggle} className="flex items-center gap-3 group">
-      <div className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${on ? "bg-[#162060]" : "bg-[#D1D5DB]"}`}>
-        <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${on ? "translate-x-5" : "translate-x-0"}`} />
-      </div>
-      <div className="text-left">
-        <p className="text-sm font-medium text-[#374151]">{label}</p>
-        {sublabel && <p className="text-xs text-[#9CA3AF]">{sublabel}</p>}
-      </div>
-    </button>
-  );
-}
 
 function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
@@ -113,7 +100,16 @@ export function CardForm({ action, defaultValues, submitLabel = "Create Service"
             <input type="text" name="tagline" defaultValue={defaultValues?.tagline}
               placeholder="e.g. For growing medical practices"
               className={inputClass} />
-            <p className="text-xs text-[#9CA3AF] mt-1.5">Shown below the plan name on the service card</p>
+            <p className="text-xs text-[#9CA3AF] mt-1.5">Short subtitle shown on the service card</p>
+          </div>
+
+          <div className="sm:col-span-2">
+            <Label>Description <span className="text-[#9CA3AF] font-normal normal-case text-xs">(optional)</span></Label>
+            <textarea name="description" defaultValue={defaultValues?.description}
+              rows={3}
+              placeholder="e.g. Our most popular plan for multi-provider practices that need full-time coordinator coverage..."
+              className={`${inputClass} resize-none`} />
+            <p className="text-xs text-[#9CA3AF] mt-1.5">Longer detail shown on the service page — leave blank if not needed</p>
           </div>
 
           <div className="sm:col-span-2">
@@ -167,26 +163,6 @@ export function CardForm({ action, defaultValues, submitLabel = "Create Service"
               className={inputClass} />
             <p className="text-xs text-[#9CA3AF] mt-1.5">Set to 0 for no trial period</p>
           </div>
-        </div>
-      </div>
-
-      {/* Section: Display */}
-      <div>
-        <h3 className="text-xs font-bold text-[#9CA3AF] uppercase tracking-widest mb-4">Display Options</h3>
-        <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col sm:flex-row gap-6">
-          <Toggle
-            on={highlighted}
-            onToggle={() => setHighlighted((h) => !h)}
-            label="Featured Card"
-            sublabel="Highlights this plan with a dark navy background"
-          />
-          <div className="hidden sm:block w-px bg-[#E5E7EB]" />
-          <Toggle
-            on={status === "published"}
-            onToggle={() => setStatus((s) => (s === "draft" ? "published" : "draft"))}
-            label={status === "published" ? "Published — Visible to clients" : "Draft — Hidden from clients"}
-            sublabel={status === "published" ? "Toggle off to unpublish" : "Toggle on to go live"}
-          />
         </div>
       </div>
 

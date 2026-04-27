@@ -61,6 +61,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <div className="grid lg:grid-cols-[1fr_400px] gap-14 items-start">
             {/* Left */}
             <div>
+              {card.description && (
+                <p className="text-[#374151] leading-relaxed mb-10 text-base">
+                  {card.description}
+                </p>
+              )}
+
               {card.features.length > 0 && (
                 <div className="mb-10">
                   <h2 className="flex items-center gap-2 text-xs font-black text-[#F15A22] uppercase tracking-widest mb-6">
@@ -85,22 +91,44 @@ export default async function ServicePage({ params }: ServicePageProps) {
               )}
 
               {/* Why section */}
-              <div className="bg-[#F9FAFB] rounded-2xl border border-[#E5E7EB] p-7">
-                <h3 className="text-sm font-black text-[#162060] mb-5 uppercase tracking-wide">
-                  Why Coordinators.pro
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="rounded-2xl border border-[#E5E7EB] overflow-hidden">
+                <div className="px-7 py-5 border-b border-[#E5E7EB] bg-[#F9FAFB]">
+                  <h3 className="text-xs font-black text-[#162060] uppercase tracking-widest">
+                    Why Coordinators.pro
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E5E7EB]">
                   {[
-                    { icon: "⚡", title: "Fast Onboarding", desc: "Up and running in days, not months" },
-                    { icon: "🎯", title: "Vetted Talent", desc: "Every coordinator is rigorously screened" },
-                    { icon: "📈", title: "Proven ROI", desc: "Up to 3x more efficient than local hires" },
-                    { icon: "🔄", title: "Flexible Plans", desc: "Upgrade or adjust any time" },
+                    {
+                      title: "Fast Onboarding",
+                      desc: "Up and running in days, not months",
+                      svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />,
+                    },
+                    {
+                      title: "Vetted Talent",
+                      desc: "Every coordinator is rigorously screened",
+                      svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />,
+                    },
+                    {
+                      title: "Proven ROI",
+                      desc: "Up to 3× more efficient than local hires",
+                      svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />,
+                    },
+                    {
+                      title: "Flexible Plans",
+                      desc: "Upgrade, downgrade or cancel anytime",
+                      svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />,
+                    },
                   ].map((item) => (
-                    <div key={item.title} className="flex items-start gap-3">
-                      <span className="text-xl shrink-0">{item.icon}</span>
+                    <div key={item.title} className="flex items-start gap-4 p-6 bg-white nth-3:border-t nth-4:border-t sm:nth-3:border-t-0 sm:nth-4:border-t-0 border-[#E5E7EB]">
+                      <div className="w-8 h-8 rounded-lg bg-[#FEF0E9] flex items-center justify-center shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-[#F15A22]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          {item.svg}
+                        </svg>
+                      </div>
                       <div>
                         <p className="text-sm font-bold text-[#162060]">{item.title}</p>
-                        <p className="text-xs text-[#6B7280] mt-0.5">{item.desc}</p>
+                        <p className="text-xs text-[#6B7280] mt-1 leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -161,12 +189,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </div>
               </div>
 
-              <p className="mt-4 text-center text-xs text-[#9CA3AF]">
-                Questions?{" "}
-                <a href="https://www.coordinators.pro/#contact" className="text-[#F15A22] font-semibold hover:underline">
-                  Contact the Helm team →
-                </a>
-              </p>
             </div>
           </div>
         </div>

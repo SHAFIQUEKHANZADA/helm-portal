@@ -126,23 +126,10 @@ export default async function CataloguePage() {
       {/* Nav */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#E5E7EB]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Logo />
-          <nav className="hidden md:flex items-center gap-8">
-            {[
-              { label: "How It Works", href: "https://www.coordinators.pro/#how-it-works" },
-              { label: "Services", href: "https://www.coordinators.pro/#services" },
-              { label: "Blog", href: "https://www.coordinators.pro/blog" },
-              { label: "FAQ", href: "https://www.coordinators.pro/#faq" },
-            ].map((item) => (
-              <a key={item.label} href={item.href}
-                className="text-sm font-medium text-[#6B7280] hover:text-[#162060] transition-colors">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <a href="https://www.coordinators.pro/#contact"
-            className="hidden md:inline-flex items-center gap-2 bg-[#F15A22] hover:bg-[#d44d1a] text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-sm shadow-orange-200">
-            Get Started
+          <Logo noLink />
+          <a href="#packages"
+            className="inline-flex items-center gap-2 bg-[#F15A22] hover:bg-[#d44d1a] text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-sm shadow-orange-200">
+            View Packages
           </a>
         </div>
       </header>
@@ -170,16 +157,13 @@ export default async function CataloguePage() {
               <span className="text-[#F15A22]">without the headaches</span>
             </h1>
             <p className="text-lg text-blue-200 max-w-xl mx-auto mb-3 leading-relaxed">
-              Dedicated healthcare coordinators starting at $1,800/month — a fraction of the cost of a local hire.
-            </p>
-            <p className="text-sm text-blue-300/70">
-              No credit card required to start &nbsp;·&nbsp; Cancel anytime through Helm
+              Dedicated healthcare coordinators, a fraction of the cost of a local hire.
             </p>
           </div>
         </section>
 
         {/* Cards */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <section id="packages" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
           {cards.length === 0 ? (
             <div className="text-center py-20">
               <div className="w-16 h-16 bg-[#FEF0E9] rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -198,18 +182,36 @@ export default async function CataloguePage() {
         </section>
 
         {/* Trust bar */}
-        <section className="border-t border-[#E5E7EB] bg-[#F9FAFB]">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <section className="border-t border-[#E5E7EB]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col sm:flex-row items-stretch divide-y sm:divide-y-0 sm:divide-x divide-[#E5E7EB]">
               {[
-                { icon: "🔒", title: "Secure Payments", desc: "Powered by Stripe — PCI DSS compliant" },
-                { icon: "💳", title: "Flexible Payment", desc: "Card, ACH, Apple Pay & Google Pay" },
-                { icon: "🤝", title: "Managed Support", desc: "Cancellations handled by the Helm team" },
+                {
+                  title: "Secured by Stripe",
+                  desc: "PCI DSS compliant · Bank-grade encryption",
+                  path: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+                },
+                {
+                  title: "All Payment Methods",
+                  desc: "Card · ACH Direct Debit · Apple Pay · Google Pay",
+                  path: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
+                },
+                {
+                  title: "Helm-Managed Support",
+                  desc: "Changes and cancellations via the Helm team",
+                  path: "M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z",
+                },
               ].map((item) => (
-                <div key={item.title} className="flex flex-col items-center gap-2">
-                  <span className="text-3xl mb-1">{item.icon}</span>
-                  <p className="font-bold text-[#162060] text-sm">{item.title}</p>
-                  <p className="text-[#6B7280] text-xs">{item.desc}</p>
+                <div key={item.title} className="flex items-center gap-4 px-8 py-7 flex-1">
+                  <div className="w-9 h-9 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] flex items-center justify-center shrink-0">
+                    <svg className="w-4.5 h-4.5 text-[#162060]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                      <path d={item.path} />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-[#162060]">{item.title}</p>
+                    <p className="text-xs text-[#9CA3AF] mt-0.5 leading-relaxed">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>

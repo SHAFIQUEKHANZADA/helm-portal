@@ -32,8 +32,9 @@ export async function POST(req: NextRequest) {
       mode: "subscription",
       line_items: [{ price: price.id, quantity: 1 }],
       billing_address_collection: "auto",
-      // Let Stripe Dashboard control which payment methods are enabled
-      // (removes need to manually activate ACH/Apple Pay/Google Pay in code)
+      // card includes Apple Pay + Google Pay automatically when device supports it
+      // us_bank_account enables ACH Direct Debit (Stripe handles bank verification flow)
+      payment_method_types: ["card", "us_bank_account"],
       ...(trialDays > 0
         ? { subscription_data: { trial_period_days: trialDays } }
         : {}),

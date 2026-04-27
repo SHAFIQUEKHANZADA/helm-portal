@@ -11,6 +11,7 @@ async function createCardAction(_state: FormState, formData: FormData): Promise<
   const name = (formData.get("name") as string)?.trim();
   const slug = (formData.get("slug") as string)?.trim();
   const tagline = (formData.get("tagline") as string) ?? "";
+  const description = (formData.get("description") as string) ?? "";
   const priceStr = formData.get("priceAmount") as string;
   const billingInterval = (formData.get("billingInterval") as "month" | "year") || "month";
   const trialDaysStr = formData.get("trialDays") as string;
@@ -29,7 +30,7 @@ async function createCardAction(_state: FormState, formData: FormData): Promise<
   const trialDays = parseInt(trialDaysStr || "0", 10);
 
   const input: CreateCardInput = {
-    name, slug, tagline, priceAmount, billingInterval, features,
+    name, slug, tagline, description, priceAmount, billingInterval, features,
     buttonLabel, highlighted, status, trialDays: isNaN(trialDays) ? 0 : trialDays,
   };
   await createCard(input);

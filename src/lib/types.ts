@@ -6,6 +6,7 @@ export interface PriceCard {
   name: string;
   slug: string;
   tagline: string;
+  description: string;
   priceAmount: number; // in cents
   billingInterval: BillingInterval;
   features: string[];
@@ -23,6 +24,7 @@ export interface CreateCardInput {
   name: string;
   slug: string;
   tagline: string;
+  description: string;
   priceAmount: number; // in dollars
   billingInterval: BillingInterval;
   features: string[];

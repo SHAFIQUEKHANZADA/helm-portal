@@ -28,6 +28,7 @@ function productToCard(
     name: product.name,
     slug: product.metadata.slug ?? "",
     tagline: product.metadata.tagline ?? "",
+    description: product.metadata.description ?? "",
     priceAmount: price?.unit_amount ?? 0,
     billingInterval: (price?.recurring?.interval as "month" | "year") ?? "month",
     features,
@@ -93,6 +94,7 @@ export async function createCard(input: CreateCardInput): Promise<void> {
       helm_card: "true",
       slug: input.slug,
       tagline: input.tagline,
+      description: input.description,
       features: JSON.stringify(input.features),
       button_label: input.buttonLabel,
       highlighted: String(input.highlighted),
@@ -140,6 +142,7 @@ export async function updateCard(
       ...existingProduct.metadata,
       slug: input.slug,
       tagline: input.tagline,
+      description: input.description,
       features: JSON.stringify(input.features),
       button_label: input.buttonLabel,
       highlighted: String(input.highlighted),
@@ -183,6 +186,19 @@ export async function togglePublish(
   const product = await stripe.products.retrieve(productId);
   await stripe.products.update(productId, {
     metadata: { ...product.metadata, status: newStatus },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/dashboard");
+}
+
+export async function toggleFeatured(
+  productId: string,
+  currentHighlighted: boolean
+): Promise<void> {
+  const product = await stripe.products.retrieve(productId);
+  await stripe.products.update(productId, {
+    metadata: { ...product.metadata, highlighted: String(!currentHighlighted) },
   });
 
   revalidatePath("/");
